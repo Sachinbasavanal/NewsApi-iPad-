@@ -22,10 +22,10 @@ class MainPageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSplitVC()
-        fetchDataFromApi()
+        MainPageVC.fetchDataFromApi()
     }
     
-    func fetchDataFromApi(){
+    static func fetchDataFromApi(){
         MainPageVC.fetchData.fetchData(){ success in
             print(success)
             if success{
@@ -47,19 +47,12 @@ class MainPageVC: UIViewController {
         let rightVC = RightVC()
         //leftVC.delegate = self
         rightVC.view.frame = view.bounds
+        splitVC.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
+        splitVC.presentsWithGesture = false
         splitVC.viewControllers = [
-            UINavigationController(rootViewController: leftVC),
-            UINavigationController(rootViewController: rightVC)
+            leftVC,rightVC
         ]
         present(splitVC, animated: true)
-    }
-    
-    func configureButton(){
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 70))
-        button.backgroundColor = .systemBlue
-        button.setTitle("Show News results", for: .normal)
-        view.addSubview(button)
-        button.center = view.center
     }
 }
 

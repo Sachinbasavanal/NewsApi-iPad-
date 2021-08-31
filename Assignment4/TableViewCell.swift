@@ -9,8 +9,10 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
-    @IBOutlet weak var authorOutlet: UILabel!
+    @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var titleOutlet: UILabel!
+    @IBOutlet weak var spinnerView: UIActivityIndicatorView!
+    @IBOutlet weak var bgView:UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,14 +25,18 @@ class TableViewCell: UITableViewCell {
     var cellViewModel:CellModel?{
         didSet{
             titleOutlet.text = cellViewModel?.title
-            authorOutlet.text = cellViewModel?.author
+            spinnerView.startAnimating()
+            if let imageURL = cellViewModel?.imageUrl{
+                imageOutlet.loadImage(url: URL(string: imageURL)!)
+            }
+            spinnerView.isHidden = true
         }
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         titleOutlet.text = nil
-        authorOutlet.text = nil
+        imageOutlet.image = nil
     }
     
 }

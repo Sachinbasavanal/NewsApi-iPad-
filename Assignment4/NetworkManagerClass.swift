@@ -40,7 +40,6 @@ class AlamofireClass{
                     self.state = newState
                     success = true
                     completion(success)
-                    
                 }
             }
             catch{

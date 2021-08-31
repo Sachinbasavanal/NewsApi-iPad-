@@ -12,11 +12,13 @@ class RightVC:UIViewController,WKNavigationDelegate, WKUIDelegate{
     
     var webView = WKWebView(frame: .zero)
     var activityIndicator = UIActivityIndicatorView()
-    var url = "https://google.com"
+    var url = "https://abcnews.go.com/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        MainPageVC.fetchDataFromApi()
         configureWebView(to: url)
+        title = "Detail View"
     }
     
     init(url:String){
@@ -42,6 +44,7 @@ class RightVC:UIViewController,WKNavigationDelegate, WKUIDelegate{
     func configureWebView(to url:String){
         webView.navigationDelegate = self
         webView.uiDelegate = self
+        activityIndicator.center = view.center
         view.addSubview(webView)
         guard let url = URL(string: url) else {
             return

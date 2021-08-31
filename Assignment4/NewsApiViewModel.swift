@@ -20,23 +20,24 @@ class NewsApiViewModel:NSObject{
     }
     var refreshTableView: (()->Void)?
     
-    func getCellViewModel(at indexPath:IndexPath)->CellModel{
+    func getViewModel(at indexPath:IndexPath)->CellModel{
         print(indexPath.row)
         return newViewModel[indexPath.row]
     }
     
-    func createNewsCellViewModel(newsApiData:Article)->CellModel{
+    func createNewsSubViewModel(newsApiData:Article)->CellModel{
         let name = newsApiData.author
         let title = newsApiData.title
         let url = newsApiData.url
-        return CellModel(author: name, title: title, url: url)
+        let imageUrl = newsApiData.urlToImage
+        return CellModel(author: name, title: title, url: url,imageUrl: imageUrl)
     }
     
     func fetchNewsData(newsApiData:[Article]){
         self.newsApiData = newsApiData
         var viewModels = [CellModel]()
         for newsArticle in newsApiData{
-            viewModels.append(createNewsCellViewModel(newsApiData: newsArticle))
+            viewModels.append(createNewsSubViewModel(newsApiData: newsArticle))
         }
         newViewModel = viewModels
     }

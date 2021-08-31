@@ -11,4 +11,5 @@ struct CellModel{
     var author:String?
     var title:String?
     var url:String?
+    var imageUrl:String?
 }
